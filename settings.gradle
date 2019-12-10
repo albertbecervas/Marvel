@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':marvel-presentation', ':marvel-data', ':marvel-domain'
 rootProject.name='Marvel'
