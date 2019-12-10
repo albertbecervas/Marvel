@@ -1,7 +1,6 @@
-package com.abecerra.marvel.di
+package com.abecerra.marvel_data.di
 
 import com.abecerra.marvel_data.api.services.CharactersService
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -9,19 +8,16 @@ object ServiceModule {
 
     private const val BASE_URL = "http://test.com"
 
-    fun get() = module {
-        single { provideRetrofit() }
-        single { provideCharactersService(get()) }
-    }
+    private var retrofit: Retrofit
 
-    private fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
+    init {
+        retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    private fun provideCharactersService(retrofit: Retrofit): CharactersService {
+    fun provideCharactersService(): CharactersService {
         return retrofit.create(CharactersService::class.java)
     }
 

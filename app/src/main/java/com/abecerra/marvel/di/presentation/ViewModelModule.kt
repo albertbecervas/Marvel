@@ -1,4 +1,4 @@
-package com.abecerra.marvel.di
+package com.abecerra.marvel.di.presentation
 
 import com.abecerra.marvel_presentation.ui.characters.CharactersViewModel
 import org.koin.android.viewmodel.dsl.viewModel

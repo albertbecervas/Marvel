@@ -1,4 +1,4 @@
-package com.abecerra.marvel.di
+package com.abecerra.marvel.di.domain
 
 import com.abecerra.marvel_domain.usecase.GetCharactersUseCase
 import org.koin.dsl.module

@@ -2,6 +2,10 @@ package com.abecerra.marvel_domain.usecase
 
 import com.abecerra.marvel_domain.repository.CharactersRepository
 
-class GetCharactersUseCase(charactersRepository: CharactersRepository) {
+class GetCharactersUseCase(private val charactersRepository: CharactersRepository) {
+
+    fun execute(){
+        charactersRepository.getCharacters()
+    }
 
 }

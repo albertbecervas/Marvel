@@ -4,4 +4,7 @@ import com.abecerra.marvel_data.api.services.CharactersService
 import com.abecerra.marvel_domain.repository.CharactersRepository
 
 class CharactersRepositoryImpl(charactersService: CharactersService) : CharactersRepository {
+    override fun getCharacters() {
+        val s = ""
+    }
 }
