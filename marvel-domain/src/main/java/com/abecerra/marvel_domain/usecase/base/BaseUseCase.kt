@@ -4,9 +4,9 @@ import kotlinx.coroutines.*
 import java.util.concurrent.CancellationException
 import kotlin.coroutines.CoroutineContext
 
-typealias CompletionBlock<T> = UseCase.Request<T>.() -> Unit
+typealias CompletionBlock<T> = BaseUseCase.Request<T>.() -> Unit
 
-abstract class UseCase<T> {
+abstract class BaseUseCase<T> {
 
     private var parentJob: Job = Job()
     var backgroundContext: CoroutineContext = Dispatchers.IO
