@@ -11,6 +11,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        launchFragment()
+    }
+
+    private fun launchFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fl, CharactersFragment())
             .commit()

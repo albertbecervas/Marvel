@@ -1,10 +1,10 @@
 package com.abecerra.marvel
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.abecerra.marvel.di.AppModule
 import org.koin.core.context.startKoin
 
-class MarvelApplication : Application() {
+class MarvelApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

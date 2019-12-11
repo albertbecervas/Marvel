@@ -5,7 +5,15 @@ import com.abecerra.marvel_domain.usecase.GetCharactersUseCase
 
 class CharactersViewModel(private val getCharactersUseCase: GetCharactersUseCase) : ViewModel() {
 
-    fun test() {
-        getCharactersUseCase.execute()
+    fun getCharacters() {
+        getCharactersUseCase.execute {
+            onComplete {
+                val s = ""
+            }
+            onError {
+                val e = ""
+            }
+        }
     }
+
 }
