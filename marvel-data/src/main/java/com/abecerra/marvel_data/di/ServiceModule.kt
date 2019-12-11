@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceModule {
 
-    private const val BASE_URL = "http://test.com"
+    private const val BASE_URL = "http://gateway.marvel.com"
 
     private var retrofit: Retrofit
 
