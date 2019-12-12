@@ -9,12 +9,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CharactersService {
-
     @GET("V1/public/characters")
-    suspend fun getCharactersAsync(
+    fun getCharactersAsync(
         @Query("ts") ts: String = ApiConstants.TIME_STAMP,
         @Query("apikey") key: String = ApiConstants.API_KEY,
         @Query("hash") hash: String = ApiConstants.HASH
-    ): Deferred<ResponseDto<List<CharacterDto>>>
-
+    ): ResponseDto<List<CharacterDto>>
 }

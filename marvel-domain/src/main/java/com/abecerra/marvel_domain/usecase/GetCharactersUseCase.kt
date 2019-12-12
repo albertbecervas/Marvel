@@ -7,7 +7,6 @@ import com.abecerra.marvel_domain.usecase.base.BaseUseCase
 class GetCharactersUseCase(private val charactersRepository: CharactersRepository) :
     BaseUseCase<List<Character>>() {
 
-
     override suspend fun executeOnBackground(): List<Character> {
         return charactersRepository.getCharacters()
     }

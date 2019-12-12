@@ -18,7 +18,7 @@ abstract class BaseUseCase<T> {
         val response = Request<T>().apply { block() }
         unsubscribe()
         parentJob = Job()
-        CoroutineScope(foregroundContext).launch {
+        CoroutineScope(Dispatchers.Default + parentJob).launch {
             try {
                 val result = withContext(backgroundContext) {
                     executeOnBackground()
@@ -49,15 +49,12 @@ abstract class BaseUseCase<T> {
         }
 
         fun onError(block: () -> Unit) {
-
             onError = block
-
         }
 
         fun onCancel(block: (CancellationException) -> Unit) {
             onCancel = block
         }
-
 
         operator fun invoke(result: T) {
             onComplete?.let {
@@ -68,7 +65,6 @@ abstract class BaseUseCase<T> {
         operator fun invoke() {
             onError?.let {
                 it.invoke()
-
             }
         }
 

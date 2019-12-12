@@ -7,8 +7,8 @@ import com.abecerra.marvel_domain.repository.CharactersRepository
 
 class CharactersRepositoryImpl(private val charactersService: CharactersService) :
     CharactersRepository {
-    override suspend fun getCharacters(): List<Character> {
-        val characters = charactersService.getCharactersAsync().await().data.results
+    override fun getCharacters(count: Int): List<Character> {
+        val characters = charactersService.getCharactersAsync().data.results
         return CharacterDtoMapper.map(characters)
     }
 }
