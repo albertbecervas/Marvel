@@ -4,6 +4,6 @@ import com.abecerra.marvel_domain.model.Character
 
 interface CharactersRepository {
 
-    fun getCharacters(count: Int = 0): List<Character>
+    suspend fun getCharacters(offset: Int): List<Character>
 
 }

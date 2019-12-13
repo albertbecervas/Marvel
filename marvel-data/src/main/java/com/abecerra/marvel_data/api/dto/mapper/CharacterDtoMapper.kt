@@ -12,5 +12,4 @@ object CharacterDtoMapper {
     private fun CharacterDto.mapToCharacter(): Character {
         return Character(id, name)
     }
-
 }
