@@ -1,4 +1,6 @@
 package com.abecerra.marvel_domain.model
 
-class Character {
-}
+data class Character(
+    val id: Int,
+    val name: String
+)

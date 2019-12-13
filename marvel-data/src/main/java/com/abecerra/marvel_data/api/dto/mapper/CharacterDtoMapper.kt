@@ -6,7 +6,11 @@ import com.abecerra.marvel_domain.model.Character
 object CharacterDtoMapper {
 
     fun map(from: List<CharacterDto>): List<Character> {
-        return arrayListOf()
+        return from.map { it.mapToCharacter() }
+    }
+
+    private fun CharacterDto.mapToCharacter(): Character {
+        return Character(id, name)
     }
 
 }
