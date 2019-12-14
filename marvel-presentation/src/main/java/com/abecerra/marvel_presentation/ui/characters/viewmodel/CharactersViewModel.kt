@@ -4,11 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import com.abecerra.marvel_domain.model.Character
 import com.abecerra.marvel_domain.usecase.GetCharactersUseCase
 import com.abecerra.marvel_presentation.base.BaseViewModel
+import com.abecerra.marvel_presentation.ui.characters.CharactersRouter
 import com.abecerra.marvel_presentation.ui.characters.model.CharacterModel
 import com.abecerra.marvel_presentation.ui.characters.model.CharacterModelMapper
 
-class CharactersViewModel(private val getCharactersUseCase: GetCharactersUseCase) :
-    BaseViewModel() {
+class CharactersViewModel(
+    private val getCharactersUseCase: GetCharactersUseCase,
+    private val charactersRouter: CharactersRouter
+) : BaseViewModel() {
 
     val characters = MutableLiveData<List<CharacterModel>>()
 
@@ -20,7 +23,15 @@ class CharactersViewModel(private val getCharactersUseCase: GetCharactersUseCase
         )
     }
 
+    fun onCharacterClick(id: Int) {
+        charactersRouter.onCharacterClick(id)
+    }
+
     private fun handleCharactersResponse(charactersList: List<Character>) {
         characters.postValue(CharacterModelMapper.map(charactersList))
+    }
+
+    override fun destroy() {
+        charactersRouter.unAttach()
     }
 }

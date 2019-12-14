@@ -8,8 +8,11 @@ import kotlinx.android.synthetic.main.item_characters_list.view.*
 
 class CharactersViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-    fun bind(character: CharacterModel) {
+    fun bind(onCharacterSelected: (id: Int) -> Unit, character: CharacterModel) {
         view.tv_name?.text = character.name
         Glide.with(view.context).load(character.thumbnail).into(view.iv_character)
+        view.setOnClickListener {
+            onCharacterSelected(character.id)
+        }
     }
 }

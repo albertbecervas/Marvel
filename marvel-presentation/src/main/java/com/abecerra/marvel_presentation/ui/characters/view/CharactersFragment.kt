@@ -11,14 +11,10 @@ import com.abecerra.marvel_presentation.ui.characters.viewmodel.CharactersViewMo
 import com.abecerra.marvel_presentation.utils.RecyclerPaginationListener
 import com.abecerra.marvel_presentation.utils.observe
 import kotlinx.android.synthetic.main.fragment_characters.*
-import org.koin.android.viewmodel.ext.android.viewModel
 
-class CharactersFragment : BaseFragment() {
-
-    private val viewModel: CharactersViewModel by viewModel()
+class CharactersFragment : BaseFragment<CharactersViewModel>() {
 
     private var adapter: CharactersAdapter? = null
-
     private var pagination: RecyclerPaginationListener? = null
 
     override fun getLayout(): Int = R.layout.fragment_characters
@@ -33,12 +29,14 @@ class CharactersFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
-        progress_bar.visibility = View.VISIBLE
+        showLoading()
         viewModel.getCharacters()
     }
 
     private fun initViews() {
-        adapter = CharactersAdapter()
+        adapter = CharactersAdapter {
+            viewModel.onCharacterClick(it)
+        }
         pagination = RecyclerPaginationListener {
             progress_bar.visibility = View.VISIBLE
             viewModel.getCharacters(it)
@@ -50,7 +48,7 @@ class CharactersFragment : BaseFragment() {
     }
 
     private fun updateList(characters: List<CharacterModel>?) {
-        progress_bar.visibility = View.GONE
+        hideLoading()
         characters?.let {
             adapter?.addItems(it)
             pagination?.setEndLoading()

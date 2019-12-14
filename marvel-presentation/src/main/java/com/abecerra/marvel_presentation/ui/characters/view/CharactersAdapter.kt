@@ -6,10 +6,11 @@ import com.abecerra.marvel_presentation.base.BaseAdapter
 import com.abecerra.marvel_presentation.ui.characters.model.CharacterModel
 import com.abecerra.marvel_presentation.utils.inflate
 
-class CharactersAdapter : BaseAdapter<CharactersViewHolder, CharacterModel>() {
+class CharactersAdapter(private val onCharacterSelected: (id: Int) -> Unit) :
+    BaseAdapter<CharactersViewHolder, CharacterModel>() {
 
     override fun onBindViewHolder(holder: CharactersViewHolder, item: CharacterModel, pos: Int) {
-        holder.bind(item)
+        holder.bind(onCharacterSelected, item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder =

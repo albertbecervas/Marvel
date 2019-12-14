@@ -11,4 +11,6 @@ abstract class BaseViewModel : ViewModel() {
     protected fun handleError(failure: Failure) {
         error.postValue(failure)
     }
+
+    abstract fun destroy()
 }
