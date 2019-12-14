@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CharacterItemList">
+        <item name="android:background">@color/marvel_black</item>
+    </style>
+
+    <style name="CharacterItemListText" parent="CharacterItemList">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/item_characters_list_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+</resources>

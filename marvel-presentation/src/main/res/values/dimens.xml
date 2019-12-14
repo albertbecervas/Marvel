@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="item_characters_list_image_height">160dp</dimen>
+    <dimen name="item_characters_list_image_max_width">100dp</dimen>
+    <dimen name="item_characters_list_text_size">20sp</dimen>
+    <dimen name="item_characters_list_divider_height">4dp</dimen>
+</resources>

@@ -3,10 +3,12 @@ package com.abecerra.marvel_data.api.utils
 object ApiParameters {
 
     const val BASE_URL = "http://gateway.marvel.com/"
-    const val API_VERSION = "v1/public"
+    private const val API_VERSION = "v1/public"
 
+    // URL
     const val CHARACTERS_URL = "$API_VERSION/characters"
 
+    // PARAMETERS
     const val PARAM_OFFSET = "offset"
     const val PARAM_TS = "ts"
     const val PARAM_API_KEY = "apikey"
