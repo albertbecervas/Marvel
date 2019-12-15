@@ -1,7 +1,5 @@
-apply plugin: 'com.android.application'
-
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -10,23 +8,20 @@ android {
     compileSdkVersion config['compile_sdk']
     buildToolsVersion config['build_tools']
     defaultConfig {
-        applicationId config['application_id']
         minSdkVersion config['min_sdk']
         targetSdkVersion config['target_sdk']
         versionCode config['version_code']
         versionName config['version_name']
+
         testInstrumentationRunner config['test_runner']
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    compileOptions {
-        targetCompatibility = "8"
-        sourceCompatibility = "8"
     }
 }
 
@@ -38,17 +33,7 @@ dependencies {
     implementation appDependencies.appCompat
     implementation appDependencies.androidx_core
     implementation appDependencies.multidex
-
-    def koinDependencies = rootProject.ext.koin
-    implementation koinDependencies.koin
-    implementation koinDependencies.koin_scope
-    implementation koinDependencies.koin_viewmodel
-
-    def modulesDependencies = rootProject.ext.modules
-    implementation modulesDependencies.data
-    implementation modulesDependencies.domain
-    implementation modulesDependencies.presentation
-    implementation project(":comics")
+    implementation appDependencies.androidx_support_legacy
 
     def testDependencies = rootProject.ext.testing
     testImplementation testDependencies.junit

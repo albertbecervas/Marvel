@@ -1,41 +1,10 @@
-apply plugin: 'java-library'
-apply plugin: 'kotlin'
+apply from: "$rootDir/common-java-library.gradle"
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    def coroutinesDependencies = rootProject.ext.coroutines
+    implementation coroutinesDependencies.coroutines
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'androidx.test:core:1.2.0'
-    testImplementation 'org.mockito:mockito-core:2.23.0'
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2"
-    testImplementation "com.nhaarman:mockito-kotlin:1.4.0"
-}
-
-sourceCompatibility = "8"
-targetCompatibility = "8"
-buildscript {
-    ext.kotlin_version = '1.3.50'
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-repositories {
-    mavenCentral()
-    jcenter()
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    def testDependencies = rootProject.ext.testing
+    testImplementation testDependencies.test_coroutines
+    testImplementation testDependencies.mockito_kotlin
 }

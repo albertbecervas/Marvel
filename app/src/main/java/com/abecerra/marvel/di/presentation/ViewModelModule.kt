@@ -1,6 +1,7 @@
 package com.abecerra.marvel.di.presentation
 
 import android.content.Context
+import com.abecerra.comics.ComicsViewModel
 import com.abecerra.marvel_presentation.base.BaseViewModel
 import com.abecerra.marvel_presentation.ui.characters.viewmodel.CharactersViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -13,5 +14,6 @@ object ViewModelModule {
         viewModel<BaseViewModel> { (ctx: Context) ->
             CharactersViewModel(get(), get { parametersOf(ctx) })
         }
+        viewModel { (ctx: Context) -> ComicsViewModel(get { parametersOf(ctx) }) }
     }
 }
