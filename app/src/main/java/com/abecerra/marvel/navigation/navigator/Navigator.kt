@@ -8,11 +8,9 @@ import com.abecerra.marvel.R
 object Navigator {
 
     fun Context.replaceFragment(fragment: Fragment) {
-        when (this) {
-            is AppCompatActivity -> this.supportFragmentManager.beginTransaction()
-                .replace(R.id.fl, fragment).commitNow()
-            is Fragment -> this.childFragmentManager.beginTransaction()
-                .add(R.id.fl, fragment).commit()
-        }
+        (this as? AppCompatActivity)?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.fl, fragment)
+            ?.addToBackStack(fragment.tag)
+            ?.commit()
     }
 }

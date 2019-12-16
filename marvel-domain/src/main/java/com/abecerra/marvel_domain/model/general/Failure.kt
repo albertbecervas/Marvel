@@ -1,4 +1,4 @@
-package com.abecerra.marvel_domain.model.base
+package com.abecerra.marvel_domain.model.general
 
 /**
  * Base Class for handling errors/failures/exceptions.

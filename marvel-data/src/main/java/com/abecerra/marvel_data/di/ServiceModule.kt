@@ -3,6 +3,8 @@ package com.abecerra.marvel_data.di
 import com.abecerra.marvel_data.api.services.CharactersService
 import com.abecerra.marvel_data.api.utils.ApiParameters
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,7 +14,14 @@ object ServiceModule {
         .baseUrl(ApiParameters.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .client(provideClient())
         .build()
+
+    private fun provideClient(): OkHttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+        return OkHttpClient.Builder().addInterceptor(logging).build()
+    }
 
     fun provideCharactersService(): CharactersService {
         return retrofit.create(CharactersService::class.java)

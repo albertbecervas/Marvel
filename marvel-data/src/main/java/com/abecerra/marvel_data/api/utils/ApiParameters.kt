@@ -7,12 +7,14 @@ object ApiParameters {
 
     // URL
     const val CHARACTERS_URL = "$API_VERSION/characters"
+    const val CHARACTER_DETAIL_URL = "$API_VERSION/characters/{characterId}"
 
     // PARAMETERS
     const val PARAM_OFFSET = "offset"
     const val PARAM_TS = "ts"
     const val PARAM_API_KEY = "apikey"
     const val PARAM_HASH = "hash"
+    const val PARAM_ID = "characterId"
 
     //Todo: obfuscate
     const val TIME_STAMP = "5"

@@ -1,6 +1,6 @@
 package com.abecerra.marvel_domain.usecase.base
 
-import com.abecerra.marvel_domain.model.base.Failure
+import com.abecerra.marvel_domain.model.general.Failure
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

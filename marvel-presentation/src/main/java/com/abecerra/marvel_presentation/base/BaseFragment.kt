@@ -6,26 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.abecerra.marvel_domain.model.base.Failure
+import com.abecerra.marvel_domain.model.general.Failure
 import com.abecerra.marvel_presentation.utils.observe
 import kotlinx.android.synthetic.main.fragment_characters.*
-import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
-abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
+abstract class BaseFragment : Fragment() {
 
-    private val _viewModel: BaseViewModel by viewModel { parametersOf(this.context) }
-    protected val viewModel: VM
-        get() {
-            return _viewModel as VM
-        }
+    private var viewModel: BaseViewModel? = null
 
     abstract fun getLayout(): Int
 
+    abstract fun getViewModel(): BaseViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        observe(viewModel.error, ::showError)
+        viewModel = getViewModel()
+        viewModel?.let {
+            observe(it.error, ::showError)
+        }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,7 +44,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     }
 
     override fun onDestroy() {
-        viewModel.destroy()
+        viewModel?.destroy()
         super.onDestroy()
     }
 }
