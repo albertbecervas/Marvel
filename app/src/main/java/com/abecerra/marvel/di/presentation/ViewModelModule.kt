@@ -1,8 +1,6 @@
 package com.abecerra.marvel.di.presentation
 
 import android.content.Context
-import com.abecerra.comics.ComicsViewModel
-import com.abecerra.marvel_presentation.base.BaseViewModel
 import com.abecerra.marvel_presentation.ui.characterdetail.viewmodel.CharacterDetailViewModel
 import com.abecerra.marvel_presentation.ui.characters.viewmodel.CharactersViewModel
 import org.koin.android.viewmodel.dsl.viewModel

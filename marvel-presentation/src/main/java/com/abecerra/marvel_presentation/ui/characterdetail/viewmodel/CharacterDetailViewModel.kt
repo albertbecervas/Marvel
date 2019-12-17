@@ -1,30 +1,28 @@
 package com.abecerra.marvel_presentation.ui.characterdetail.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.abecerra.marvel_domain.model.CharacterDetail
-import com.abecerra.marvel_domain.usecase.GetCharacterDetailUseCase
+import com.abecerra.marvel_domain.model.CharacterSection
+import com.abecerra.marvel_domain.usecase.GetCharacterDetailSectionsUseCase
 import com.abecerra.marvel_presentation.base.BaseViewModel
 import com.abecerra.marvel_presentation.ui.characterdetail.CharactersDetailRouter
-import com.abecerra.marvel_presentation.ui.characterdetail.model.CharacterDetailModel
-import com.abecerra.marvel_presentation.ui.characterdetail.model.CharacterDetailModelMapper
 
 class CharacterDetailViewModel(
-    private val getCharacterDetailUseCase: GetCharacterDetailUseCase,
+    private val getCharacterDetailSectionsUseCase: GetCharacterDetailSectionsUseCase,
     private val charactersDetailRouter: CharactersDetailRouter
 ) : BaseViewModel() {
 
-    val characterDetail = MutableLiveData<CharacterDetailModel>()
+    val characterDetailSections = MutableLiveData<ArrayList<CharacterSection>>()
 
-    fun getCharacterDetail(id: Int) {
-        getCharacterDetailUseCase.execute(
-            params = GetCharacterDetailUseCase.CharacterDetailParams(id),
+    fun getCharacterDetailSections() {
+        getCharacterDetailSectionsUseCase.execute(
+            params = GetCharacterDetailSectionsUseCase.CharacterDetailParams(),
             error = ::handleError,
-            response = ::handleCharacterDetailResponse
+            response = ::handleCharacterDetailSectionsResponse
         )
     }
 
-    private fun handleCharacterDetailResponse(characterDetail: CharacterDetail) {
-        this.characterDetail.postValue(CharacterDetailModelMapper.map(characterDetail))
+    private fun handleCharacterDetailSectionsResponse(characterSections: ArrayList<CharacterSection>) {
+        this.characterDetailSections.postValue(characterSections)
     }
 
     override fun destroy() {

@@ -38,6 +38,7 @@ dependencies {
     implementation appDependencies.appCompat
     implementation appDependencies.androidx_core
     implementation appDependencies.multidex
+    implementation appDependencies.constraintLayout
 
     def koinDependencies = rootProject.ext.koin
     implementation koinDependencies.koin
@@ -48,7 +49,6 @@ dependencies {
     implementation modulesDependencies.data
     implementation modulesDependencies.domain
     implementation modulesDependencies.presentation
-    implementation project(":comics")
 
     def testDependencies = rootProject.ext.testing
     testImplementation testDependencies.junit

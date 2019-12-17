@@ -1,8 +1,0 @@
-apply from: "$rootDir/common-android-library.gradle"
-
-dependencies {
-    def koinDependencies = rootProject.ext.koin
-    implementation koinDependencies.koin
-    implementation koinDependencies.koin_scope
-    implementation koinDependencies.koin_viewmodel
-}

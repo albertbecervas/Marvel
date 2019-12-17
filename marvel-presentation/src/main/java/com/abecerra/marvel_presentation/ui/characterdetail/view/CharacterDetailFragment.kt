@@ -1,13 +1,14 @@
 package com.abecerra.marvel_presentation.ui.characterdetail.view
 
-
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-
+import com.abecerra.marvel_domain.model.CharacterSection
 import com.abecerra.marvel_presentation.R
 import com.abecerra.marvel_presentation.base.BaseFragment
 import com.abecerra.marvel_presentation.base.BaseViewModel
+import com.abecerra.marvel_presentation.base.ToolbarListener
 import com.abecerra.marvel_presentation.ui.characterdetail.model.CharacterDetailModel
 import com.abecerra.marvel_presentation.ui.characterdetail.viewmodel.CharacterDetailViewModel
 import com.abecerra.marvel_presentation.utils.observe
@@ -20,9 +21,11 @@ class CharacterDetailFragment private constructor() : BaseFragment() {
 
     private val viewModel: CharacterDetailViewModel by viewModel { parametersOf(this.context) }
 
-    private var characterId: Int? = null
+    private var character: CharacterDetailModel? = null
 
     private var adapter: CharacterSectionsAdapter? = null
+
+    private var mToolbarListener: ToolbarListener? = null
 
     override fun getLayout(): Int = R.layout.fragment_character_detail
 
@@ -30,19 +33,31 @@ class CharacterDetailFragment private constructor() : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        observe(viewModel.characterDetailSections, ::updateCharacterDetailSections)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         parseArguments()
-        observe(viewModel.characterDetail, ::updateCharacterDetail)
+        prepareToolbar()
     }
 
     private fun parseArguments() {
-        arguments?.let { characterId = it.get(CHARACTER_ID) as? Int }
+        arguments?.let { character = it.get(CHARACTER) as? CharacterDetailModel }
+    }
+
+    private fun prepareToolbar() {
+        setHasOptionsMenu(false)
+        mToolbarListener = context as? ToolbarListener
+        mToolbarListener?.showDetailToolbar(character?.name)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        characterId?.let { viewModel.getCharacterDetail(it) }
-
         setViews(view)
+
+        character?.let { setCharacterDetail(it) }
+        getCharacterDetailSections()
     }
 
     private fun setViews(view: View) {
@@ -51,24 +66,33 @@ class CharacterDetailFragment private constructor() : BaseFragment() {
         rv_sections.adapter = adapter
     }
 
-    private fun updateCharacterDetail(characterDetailModel: CharacterDetailModel?) {
-        characterDetailModel?.let {
-            tv_name.text = it.name
-            tv_description.text = it.description
-            Glide.with(this).load(characterDetailModel.image).into(iv_character)
-            adapter?.setItems(it.sections)
+    private fun setCharacterDetail(characterDetailModel: CharacterDetailModel) {
+        with(characterDetailModel) {
+            tv_description.text = description
+            Glide.with(this@CharacterDetailFragment).load(characterDetailModel.image)
+                .into(iv_character)
+        }
+    }
+
+    private fun getCharacterDetailSections() {
+        viewModel.getCharacterDetailSections()
+    }
+
+    private fun updateCharacterDetailSections(characterSections: ArrayList<CharacterSection>?) {
+        characterSections?.let {
+            character?.sections = it
+            adapter?.setItems(it)
         }
     }
 
     companion object {
+        private const val CHARACTER: String = "character"
 
-        private const val CHARACTER_ID: String = "Character_id"
-
-        fun newInstance(id: Int): CharacterDetailFragment {
+        fun newInstance(character: CharacterDetailModel): CharacterDetailFragment {
             val characterDetailFragment = CharacterDetailFragment()
 
             val bundle = Bundle().apply {
-                putInt(CHARACTER_ID, id)
+                putSerializable(CHARACTER, character)
             }
 
             characterDetailFragment.arguments = bundle

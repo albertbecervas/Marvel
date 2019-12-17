@@ -10,6 +10,6 @@ object CharacterDtoMapper {
     }
 
     private fun CharacterDto.mapToCharacter(): Character {
-        return Character(id, name, ThumbnailMapper.map(thumbnail))
+        return Character(id, name, description, ThumbnailMapper.map(thumbnail))
     }
 }

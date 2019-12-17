@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="zero_dp_cl">0dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
 
     <dimen name="item_characters_list_image_height">160dp</dimen>
     <dimen name="item_characters_list_image_max_width">100dp</dimen>
     <dimen name="item_characters_list_text_size">20sp</dimen>
     <dimen name="item_characters_list_divider_height">4dp</dimen>
+
     <dimen name="iv_character_detail_height">250dp</dimen>
-    <dimen name="tv_character_detail_header_size">20sp</dimen>
+    <dimen name="tv_character_detail_header_size">18sp</dimen>
+    <dimen name="tv_character_detail_description_margin">16dp</dimen>
+    <dimen name="tv_character_detail_section_margin">16dp</dimen>
 </resources>

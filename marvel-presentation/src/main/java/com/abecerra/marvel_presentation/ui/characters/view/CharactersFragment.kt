@@ -1,11 +1,14 @@
 package com.abecerra.marvel_presentation.ui.characters.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.abecerra.marvel_presentation.R
 import com.abecerra.marvel_presentation.base.BaseFragment
 import com.abecerra.marvel_presentation.base.BaseViewModel
+import com.abecerra.marvel_presentation.base.ToolbarListener
 import com.abecerra.marvel_presentation.ui.characters.model.CharacterModel
 import com.abecerra.marvel_presentation.ui.characters.viewmodel.CharactersViewModel
 import com.abecerra.marvel_presentation.utils.RecyclerPaginationListener
@@ -21,22 +24,33 @@ class CharactersFragment : BaseFragment() {
     private var adapter: CharactersAdapter? = null
     private var pagination: RecyclerPaginationListener? = null
 
+    private var toolbarListener: ToolbarListener? = null
+
     override fun getLayout(): Int = R.layout.fragment_characters
 
     override fun getViewModel(): BaseViewModel = viewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        observe(viewModel.characters, ::updateCharactersList)
+    }
 
-        observe(viewModel.characters, ::updateList)
+    private fun prepareToolbar() {
+        setHasOptionsMenu(true)
+        toolbarListener = context as? ToolbarListener
+        toolbarListener?.showSearchToolbar()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prepareToolbar()
         initViews()
 
-        showLoading()
-        viewModel.getCharacters()
+        getCharacters()
     }
 
     private fun initViews() {
@@ -53,7 +67,12 @@ class CharactersFragment : BaseFragment() {
         pagination?.let { rv_characters.addOnScrollListener(it) }
     }
 
-    private fun updateList(characters: List<CharacterModel>?) {
+    private fun getCharacters() {
+        showLoading()
+        viewModel.getCharacters()
+    }
+
+    private fun updateCharactersList(characters: List<CharacterModel>?) {
         hideLoading()
         characters?.let {
             adapter?.addItems(it)

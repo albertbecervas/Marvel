@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<K : RecyclerView.ViewHolder, L> : RecyclerView.Adapter<K>() {
 
-    protected val mItems: ArrayList<L> = arrayListOf()
+    private val mItems: ArrayList<L> = arrayListOf()
 
     override fun onBindViewHolder(p0: K, p1: Int) {
         onBindViewHolder(p0, mItems[p1], p1)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,36 +7,34 @@
     android:background="@color/marvel_black"
     tools:context=".ui.characterdetail.view.CharacterDetailFragment">
 
-    <ImageView
-        android:id="@+id/iv_character"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/iv_character_detail_height"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_name"
-        style="@style/CharacterDetailHeaderText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_character"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/iv_character"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iv_character_detail_height"
+            android:background="@color/black_transparent_50"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/CharacterDetailHeaderText"
-        app:layout_constraintTop_toBottomOf="@+id/iv_character" />
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/CharacterDetailDescriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black_transparent_50"
+            app:layout_constraintTop_toBottomOf="@+id/iv_character" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_sections"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/zero_dp_cl"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_sections"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

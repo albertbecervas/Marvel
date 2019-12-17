@@ -8,6 +8,6 @@ import kotlinx.android.synthetic.main.item_character_section.view.*
 class CharacterSectionsViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(characterSection: CharacterSection) {
-        view.tv_section_name?.text = characterSection.sectionName
+        view.tv_section_name?.text = characterSection.name
     }
 }

@@ -23,8 +23,8 @@ class CharactersViewModel(
         )
     }
 
-    fun onCharacterClick(id: Int) {
-        charactersRouter.onCharacterClick(id)
+    fun onCharacterClick(character: CharacterModel) {
+        charactersRouter.onCharacterClick(character)
     }
 
     private fun handleCharactersResponse(charactersList: List<Character>) {

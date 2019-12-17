@@ -10,7 +10,7 @@ object CharacterModelMapper {
 
     private fun mapToCharacterModel(from: Character): CharacterModel {
         return with(from) {
-            CharacterModel(id, name, thumbnail)
+            CharacterModel(id, name, description, thumbnail)
         }
     }
 }
