@@ -5,9 +5,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.abecerra.marvel_presentation.R
+import com.abecerra.marvel_presentation.ui.components.SearchComponentOutput
 import com.abecerra.marvel_presentation.utils.StringUtils
 import kotlinx.android.synthetic.main.view_toolbar.*
-import kotlinx.android.synthetic.main.view_toolbar_search.*
 
 abstract class BaseToolbarActivity : BaseActivity(), ToolbarListener {
 
@@ -18,44 +18,38 @@ abstract class BaseToolbarActivity : BaseActivity(), ToolbarListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        hideSearch()
+        search_component.hideSearch()
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
-            R.id.app_bar_search -> showSearch()
+            R.id.app_bar_search -> search_component.showSearch()
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun setViews() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow)
-        tv_cancel?.setOnClickListener { hideSearch() }
-    }
-
-    private fun showSearch() {
-        search_layout?.visibility = View.VISIBLE
-    }
-
-    private fun hideSearch() {
-        search_layout?.visibility = View.GONE
-        et_search?.clearFocus()
     }
 
     override fun showSearchToolbar() {
-        showSearch()
+        search_component.showSearch()
         hideBackButton()
         iv_marvel_title?.visibility = View.VISIBLE
         supportActionBar?.title = StringUtils.EMPTY_STRING
     }
 
     override fun showDetailToolbar(title: String?) {
-        hideSearch()
+        search_component.hideSearch()
         showBackButton()
         iv_marvel_title?.visibility = View.GONE
         supportActionBar?.title = title
+    }
+
+    override fun bindSearchOutput(searchComponentOutput: SearchComponentOutput) {
+        search_component
     }
 
     private fun showBackButton() {
@@ -70,4 +64,6 @@ abstract class BaseToolbarActivity : BaseActivity(), ToolbarListener {
 interface ToolbarListener {
     fun showSearchToolbar()
     fun showDetailToolbar(title: String?)
+
+    fun bindSearchOutput(searchComponentOutput: SearchComponentOutput)
 }

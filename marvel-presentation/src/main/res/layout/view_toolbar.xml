@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,11 +16,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
-            app:titleTextColor="@color/white"
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/white">
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -39,12 +39,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include
-        android:id="@+id/search_layout"
-        layout="@layout/view_toolbar_search"
+    <com.abecerra.marvel_presentation.ui.components.SearchComponent
+        android:id="@+id/search_component"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

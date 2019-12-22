@@ -10,7 +10,7 @@ import org.koin.dsl.module
 object ViewModelModule {
 
     fun get() = module {
-        viewModel { (ctx: Context) -> CharactersViewModel(get(), get { parametersOf(ctx) }) }
+        viewModel { (ctx: Context) -> CharactersViewModel(get(), get(), get { parametersOf(ctx) }) }
         viewModel { (ctx: Context) -> CharacterDetailViewModel(get(), get { parametersOf(ctx) }) }
     }
 }

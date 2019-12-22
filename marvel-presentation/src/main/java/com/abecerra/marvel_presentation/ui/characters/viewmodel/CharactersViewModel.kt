@@ -3,6 +3,7 @@ package com.abecerra.marvel_presentation.ui.characters.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.abecerra.marvel_domain.model.Character
 import com.abecerra.marvel_domain.usecase.GetCharactersUseCase
+import com.abecerra.marvel_domain.usecase.SearchCharactersUseCase
 import com.abecerra.marvel_presentation.base.BaseViewModel
 import com.abecerra.marvel_presentation.ui.characters.CharactersRouter
 import com.abecerra.marvel_presentation.ui.characters.model.CharacterModel
@@ -10,6 +11,7 @@ import com.abecerra.marvel_presentation.ui.characters.model.CharacterModelMapper
 
 class CharactersViewModel(
     private val getCharactersUseCase: GetCharactersUseCase,
+    private val searchCharactersUseCase: SearchCharactersUseCase,
     private val charactersRouter: CharactersRouter
 ) : BaseViewModel() {
 
@@ -23,12 +25,24 @@ class CharactersViewModel(
         )
     }
 
+    fun searchCharactersByName(nameStartWith: String) {
+        searchCharactersUseCase.execute(
+            params = SearchCharactersUseCase.SearchCharactersParams(nameStartWith),
+            error = ::handleError,
+            response = ::handleSearchResponse
+        )
+    }
+
     fun onCharacterClick(character: CharacterModel) {
         charactersRouter.onCharacterClick(character)
     }
 
     private fun handleCharactersResponse(charactersList: List<Character>) {
         characters.postValue(CharacterModelMapper.map(charactersList))
+    }
+
+    private fun handleSearchResponse(characters: List<Character>) {
+
     }
 
     override fun destroy() {
