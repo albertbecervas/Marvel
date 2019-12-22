@@ -17,6 +17,8 @@ class CharactersViewModel(
 
     val characters = MutableLiveData<List<CharacterModel>>()
 
+    val searchedCharacters = MutableLiveData<List<CharacterModel>>()
+
     fun getCharacters(offset: Int = 0) {
         getCharactersUseCase.execute(
             params = GetCharactersUseCase.Params(offset),
@@ -34,18 +36,18 @@ class CharactersViewModel(
     }
 
     fun onCharacterClick(character: CharacterModel) {
-        charactersRouter.onCharacterClick(character)
+        this.charactersRouter.onCharacterClick(character)
     }
 
     private fun handleCharactersResponse(charactersList: List<Character>) {
-        characters.postValue(CharacterModelMapper.map(charactersList))
+        this.characters.postValue(CharacterModelMapper.map(charactersList))
     }
 
     private fun handleSearchResponse(characters: List<Character>) {
-
+        this.searchedCharacters.postValue(CharacterModelMapper.map(characters))
     }
 
     override fun destroy() {
-        charactersRouter.unAttach()
+        this.charactersRouter.unAttach()
     }
 }

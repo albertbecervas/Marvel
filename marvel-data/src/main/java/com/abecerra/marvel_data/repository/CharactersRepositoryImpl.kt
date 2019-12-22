@@ -16,7 +16,7 @@ class CharactersRepositoryImpl(
 ) : CharactersRepository {
 
     override suspend fun getCharacters(offset: Int): List<Character> {
-        return if (isInternetAvailable()){
+        return if (isInternetAvailable()) {
             val characters = charactersService.getCharactersAsync(offset).await()
             charactersDao.saveCharacters(mapToCharacterEntity(characters.data.results, offset))
             CharacterDtoMapper.map(characters.data.results)
@@ -27,7 +27,8 @@ class CharactersRepositoryImpl(
     }
 
     override suspend fun getCharactersStartingWith(name: String): List<Character> {
-        return emptyList()
+        val characters = charactersDao.searchCharacters(name)
+        return CharacterEntityMapper.map(characters)
     }
 
     override suspend fun getCharacterDetailSections(): ArrayList<CharacterSection> {

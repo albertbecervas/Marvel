@@ -8,4 +8,6 @@ interface CharactersDao {
 
     suspend fun getCharacters(offset: Int): List<CharacterEntity>
 
+    suspend fun searchCharacters(name: String): List<CharacterEntity>
+
 }

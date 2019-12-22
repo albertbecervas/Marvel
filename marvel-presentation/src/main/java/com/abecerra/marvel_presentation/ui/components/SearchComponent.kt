@@ -8,7 +8,7 @@ import com.abecerra.marvel_presentation.R
 import kotlinx.android.synthetic.main.view_search.view.*
 
 
-class SearchComponent : LinearLayout, SearchComponentInput {
+class SearchComponent : LinearLayout {
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -38,15 +38,4 @@ class SearchComponent : LinearLayout, SearchComponentInput {
         layout?.visibility = View.GONE
     }
 
-    override fun setOutput(listener: SearchComponentOutput) {
-
-    }
-}
-
-interface SearchComponentInput {
-    fun setOutput(listener: SearchComponentOutput)
-}
-
-interface SearchComponentOutput {
-    fun onSearch(text: String)
 }

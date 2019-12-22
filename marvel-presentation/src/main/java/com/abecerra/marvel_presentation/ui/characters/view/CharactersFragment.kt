@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.abecerra.marvel_presentation.R
 import com.abecerra.marvel_presentation.base.BaseFragment
 import com.abecerra.marvel_presentation.base.BaseViewModel
+import com.abecerra.marvel_presentation.base.SearchComponentOutput
 import com.abecerra.marvel_presentation.base.ToolbarListener
 import com.abecerra.marvel_presentation.ui.characters.model.CharacterModel
 import com.abecerra.marvel_presentation.ui.characters.viewmodel.CharactersViewModel
-import com.abecerra.marvel_presentation.ui.components.SearchComponentOutput
 import com.abecerra.marvel_presentation.utils.RecyclerPaginationListener
 import com.abecerra.marvel_presentation.utils.observe
 import kotlinx.android.synthetic.main.fragment_characters.*
@@ -34,12 +34,14 @@ class CharactersFragment : BaseFragment(), SearchComponentOutput {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observe(viewModel.characters, ::updateCharactersList)
+        observe(viewModel.searchedCharacters, ::setFilteredCharacters)
     }
 
     private fun prepareToolbar() {
         setHasOptionsMenu(true)
         toolbarListener = context as? ToolbarListener
         toolbarListener?.showSearchToolbar()
+        toolbarListener?.bindSearchOutput(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -66,6 +68,12 @@ class CharactersFragment : BaseFragment(), SearchComponentOutput {
         rv_characters.layoutManager = GridLayoutManager(context, SPAN_COUNT)
         rv_characters.adapter = adapter
         pagination?.let { rv_characters.addOnScrollListener(it) }
+
+        refresh_layout?.setOnRefreshListener {
+            getCharacters()
+            refresh_layout?.isRefreshing = false
+            adapter?.clear()
+        }
     }
 
     private fun getCharacters() {
@@ -81,8 +89,19 @@ class CharactersFragment : BaseFragment(), SearchComponentOutput {
         }
     }
 
+    private fun setFilteredCharacters(characters: List<CharacterModel>?) {
+        characters?.let {
+            adapter?.setItems(it)
+        }
+    }
+
     override fun onSearch(text: String) {
         viewModel.searchCharactersByName(text)
+    }
+
+    override fun emptySearch() {
+        adapter?.clear()
+        getCharacters()
     }
 
     companion object {
